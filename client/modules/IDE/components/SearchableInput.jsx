@@ -7,7 +7,7 @@ import { withTranslation } from 'react-i18next';
 // import ShareIcon from '../../../images/share.svg';
 import MagnifyingGlassIcon from '../../../images/magnifyingglass.svg';
 
-class ShareableInput extends React.Component {
+class SearchableInput extends React.Component {
   constructor(props) {
     super(props);
     this.onMouseLeaveHandler = this.onMouseLeaveHandler.bind(this);
@@ -82,15 +82,15 @@ class ShareableInput extends React.Component {
   }
 }
 
-ShareableInput.propTypes = {
+SearchableInput.propTypes = {
   label: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   hasPreviewLink: PropTypes.bool,
   t: PropTypes.func.isRequired
 };
 
-ShareableInput.defaultProps = {
+SearchableInput.defaultProps = {
   hasPreviewLink: false
 };
 
-export default withTranslation()(ShareableInput);
+export default withTranslation()(SearchableInput);

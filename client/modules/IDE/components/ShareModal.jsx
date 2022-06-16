@@ -33,7 +33,7 @@ class ShareModal extends React.PureComponent {
           value={`${hostname}/${ownerUsername}/sketches/${projectId}`}
         />
         <CopyableInput
-          label={this.props.t('ShareModal.Edit')}
+          label={this.props.t('ShareModal.Collaborate')}
           hasPreviewLink
           value={`${hostname}/${ownerUsername}/sketches/${projectId}`}
         />

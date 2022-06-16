@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 import CopyableInput from './CopyableInput';
+import ShareableInput from './ShareableInput';
 // import getConfig from '../../../utils/getConfig';
 
 class ShareModal extends React.PureComponent {
@@ -32,7 +33,7 @@ class ShareModal extends React.PureComponent {
           hasPreviewLink
           value={`${hostname}/${ownerUsername}/sketches/${projectId}`}
         />
-        <CopyableInput
+        <ShareableInput
           label={this.props.t('ShareModal.Collaborate')}
           hasPreviewLink
           value={`${hostname}/${ownerUsername}/sketches/${projectId}`}

@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import { withTranslation } from 'react-i18next';
 
 import ShareIcon from '../../../images/share.svg';
+import MagnifyingGlass from '../../../images/magnifyingglass.svg';
 
 class CopyableInput extends React.Component {
   constructor(props) {

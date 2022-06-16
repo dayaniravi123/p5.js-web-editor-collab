@@ -34,9 +34,9 @@ class ShareModal extends React.PureComponent {
           value={`${hostname}/${ownerUsername}/sketches/${projectId}`}
         />
         <ShareableInput
-          label={this.props.t('ShareModal.Collaborate')}
+          label={this.props.t('Collaborate')}
           hasPreviewLink
-          value={`${hostname}/${ownerUsername}/sketches/${projectId}`}
+          value="Search for a User..."
         />
       </div>
     );

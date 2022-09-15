@@ -107,6 +107,12 @@ module.exports = {
       }
     },
     {
+      test: /\.(jpg|jpeg|png)$/,
+      use: {
+       loader: 'url-loader'
+      }
+    },
+    {
       test: /\.mp3$/,
       use: 'file-loader'
     },

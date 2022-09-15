@@ -1,5 +1,8 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useRef } from 'react';
+import emailjs from 'emailjs-com';
+import { Button, Modal, Form, ListGroup, InputGroup } from 'react-bootstrap';
+import { AiOutlineClose } from 'react-icons/ai';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import classNames from 'classnames';
@@ -12,6 +15,191 @@ import PlayIcon from '../../../images/play.svg';
 import StopIcon from '../../../images/stop.svg';
 import PreferencesIcon from '../../../images/preferences.svg';
 import EditProjectNameIcon from '../../../images/pencil.svg';
+import myimg from './images/myself.png';
+
+function Example() {
+  const myButton = {
+    border: '2px solid black',
+    backgroundColor: 'white',
+    color: 'black',
+    padding: '10px 10px',
+    fontSize: '16px',
+    marginLeft: '10px',
+    marginRight: '10px',
+    position: 'absolute',
+    right: '5%'
+  };
+  const myJoinTextInput = {
+    width: '80%'
+  };
+  const myJoinButton = {
+    border: '1px solid green',
+    backgroundColor: 'white',
+    color: 'black',
+    width: '18%',
+    marginLeft: '5px',
+    paddingTop: '7px',
+    paddingBottom: '9px',
+    fontSize: 'larger'
+  };
+  const myFromControl = {
+    width: '100%'
+  };
+  const myListItem = {
+    width: '80%',
+    textAlign: 'left',
+    backgroundColor: '#fff',
+    borderRadius: '30px',
+    paddingBottom: '1%',
+    marginTop: '1%',
+    marginBottom: '1%'
+  };
+  const myListgroup = {
+    flex: 1,
+    marginTop: '2%',
+    overflowY: 'scroll'
+  };
+  const myListsubItem = {
+    float: 'right'
+  };
+  const myListsubItemFirst = {
+    width: '80%'
+  };
+  const myImage = {
+    width: '10%',
+    marginRight: '2%'
+  };
+  const myCloseBtn = {
+    float: 'right'
+  };
+  const [show, setShow] = React.useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const myform = useRef();
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .sendForm(
+        'service_i7z3txn',
+        'template_p4f8wzi',
+        myform.current,
+        'Zq_4ZjWUQ5tRqB3xi'
+      )
+      .then(
+        (result) => {
+          alert('Sucess');
+        },
+        (error) => {
+          alert(error.text);
+        }
+      );
+  };
+
+  return (
+    <>
+      <Button variant="primary" onClick={handleShow} style={myButton}>
+        Share
+      </Button>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Share Document</Modal.Title>
+          <Button variant="secondary" onClick={handleClose} style={myCloseBtn}>
+            <AiOutlineClose />
+          </Button>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3" controlId="controlInput1">
+              <Form.Label>Join</Form.Label>
+              <br />
+              <Form.Control
+                type="text"
+                style={myJoinTextInput}
+                placeholder="Enter Link to Join"
+              />
+              <Button variant="outline-primary" style={myJoinButton}>
+                Join
+              </Button>
+            </Form.Group>
+            <br />
+            <br />
+            <Form.Group className="mb-3" controlId="ControlInput2">
+              <Form.Label>Link to Share</Form.Label>
+              <br />
+              <Form.Control
+                style={myFromControl}
+                plaintext
+                readOnly
+                defaultValue="https://docs.google.com/document/d/1UeC6osYQIOCQxoI_9dvdIdFBmCdgwgIB_XFAHHO3YoM/edit?usp=sharing"
+              />
+            </Form.Group>
+            <br />
+            <br />
+          </Form>
+          <form ref={myform} onSubmit={sendEmail}>
+            <Form.Group className="mb-3" controlId="ControlInput3">
+              <Form.Label>Invite People</Form.Label>
+              <br />
+              <Form.Control
+                type="text"
+                style={myJoinTextInput}
+                placeholder="Add People"
+                name="user_email"
+              />
+              <input
+                type="hidden"
+                value="http://localhost:8000/"
+                name="message"
+              />
+              <input
+                type="submit"
+                variant="outline-primary"
+                style={myJoinButton}
+                value="Send"
+              />
+            </Form.Group>
+          </form>
+          <Form.Group className="mb-3">
+            <ListGroup style={myListgroup}>
+              <ListGroup.Item action style={myListItem}>
+                <InputGroup style={myListsubItemFirst}>
+                  <InputGroup.Text>
+                    <img style={myImage} src={myimg} alt="img" />
+                  </InputGroup.Text>
+                  <Form.Label>Ravi Dayani (You)</Form.Label>
+                  <Form.Label style={myListsubItem}>Owner</Form.Label>
+                </InputGroup>
+              </ListGroup.Item>
+              <ListGroup.Item action style={myListItem}>
+                <InputGroup style={myListsubItemFirst}>
+                  <InputGroup.Text>
+                    <img style={myImage} src={myimg} alt="img" />
+                  </InputGroup.Text>
+                  <Form.Label>Dave</Form.Label>
+                  <Form.Label style={myListsubItem}>Editor</Form.Label>
+                </InputGroup>
+              </ListGroup.Item>
+              <ListGroup.Item action style={myListItem}>
+                <InputGroup style={myListsubItemFirst}>
+                  <InputGroup.Text>
+                    <img style={myImage} src={myimg} alt="img" />
+                  </InputGroup.Text>
+                  <Form.Label>Cris</Form.Label>
+                  <Form.Label style={myListsubItem}>Viewer</Form.Label>
+                </InputGroup>
+              </ListGroup.Item>
+            </ListGroup>
+          </Form.Group>
+          <br />
+        </Modal.Body>
+      </Modal>
+    </>
+  );
+}
 
 class Toolbar extends React.Component {
   constructor(props) {
@@ -62,6 +250,11 @@ class Toolbar extends React.Component {
   }
 
   render() {
+    /*
+    const [show, setShow] = React.useState(false);}
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    */
     const playButtonClass = classNames({
       'toolbar__play-button': true,
       'toolbar__play-button--selected': this.props.isPlaying
@@ -79,11 +272,10 @@ class Toolbar extends React.Component {
       'toolbar__project-name-container--editing': this.props.project
         .isEditingName
     });
-
     const canEditProjectName = this.canEditProjectName();
-
     return (
       <div className="toolbar">
+        <Example />
         <button
           className="toolbar__play-sketch-button"
           onClick={() => {

@@ -8,7 +8,9 @@ import htmlParser from 'prettier/parser-html';
 import cssParser from 'prettier/parser-postcss';
 import { withTranslation } from 'react-i18next';
 import StackTrace from 'stacktrace-js';
-import 'codemirror/mode/css/css';
+import * as Y from 'yjs';
+import { WebsocketProvider } from 'y-websocket';
+import { CodemirrorBinding } from 'y-codemirror';
 import 'codemirror/mode/clike/clike';
 import 'codemirror/addon/selection/active-line';
 import 'codemirror/addon/lint/lint';
@@ -133,7 +135,6 @@ class Editor extends React.Component {
     });
 
     delete this._cm.options.lint.options.errors;
-
     const replaceCommand =
       metaKey === 'Ctrl' ? `${metaKey}-H` : `${metaKey}-Option-F`;
     this._cm.setOption('extraKeys', {
@@ -377,6 +378,15 @@ class Editor extends React.Component {
   }
 
   render() {
+    const ydoc = new Y.doc();
+    const provider = new WebsocketProvider(
+      'wss://demos.yjs.dev',
+      'codemirror',
+      ydoc
+    );
+    const ytext = ydoc.getText('codemirror');
+    //const editor = document.getElementById('myarticle');
+    //const binding = new CodemirrorBinding(ytext, editor, true);
     const editorSectionClass = classNames({
       editor: true,
       'sidebar--contracted': !this.props.isExpanded

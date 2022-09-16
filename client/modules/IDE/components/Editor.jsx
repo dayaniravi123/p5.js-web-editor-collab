@@ -9,8 +9,6 @@ import cssParser from 'prettier/parser-postcss';
 import { withTranslation } from 'react-i18next';
 import StackTrace from 'stacktrace-js';
 import * as Y from 'yjs';
-import { WebsocketProvider } from 'y-websocket';
-import { CodemirrorBinding } from 'y-codemirror';
 import 'codemirror/mode/clike/clike';
 import 'codemirror/addon/selection/active-line';
 import 'codemirror/addon/lint/lint';
@@ -33,6 +31,8 @@ import 'codemirror/addon/edit/closebrackets';
 import 'codemirror/addon/selection/mark-selection';
 import 'codemirror-colorpicker';
 
+import { WebsocketProvider } from 'y-websocket';
+import { CodemirrorBinding } from 'y-codemirror';
 import { JSHINT } from 'jshint';
 import { CSSLint } from 'csslint';
 import { HTMLHint } from 'htmlhint';
@@ -378,15 +378,15 @@ class Editor extends React.Component {
   }
 
   render() {
-    const ydoc = new Y.doc();
+    const ydoc = new Y.Doc();
     const provider = new WebsocketProvider(
       'wss://demos.yjs.dev',
-      'codemirror',
+      'codemirror-demo-2',
       ydoc
     );
     const ytext = ydoc.getText('codemirror');
-    //const editor = document.getElementById('myarticle');
-    //const binding = new CodemirrorBinding(ytext, editor, true);
+    const editor = CodeMirror(document.getElementsByTagName('article'));
+    const binding = new CodemirrorBinding(ytext, editor, provider.awareness);
     const editorSectionClass = classNames({
       editor: true,
       'sidebar--contracted': !this.props.isExpanded

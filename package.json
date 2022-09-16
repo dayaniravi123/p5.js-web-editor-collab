@@ -246,6 +246,9 @@
     "webpack": "^5.72.0",
     "webpack-dev-middleware": "^5.3.1",
     "webpack-hot-middleware": "^2.25.1",
-    "xhr": "^2.6.0"
+    "xhr": "^2.6.0",
+    "y-codemirror": "^3.0.1",
+    "y-websocket": "^1.4.5",
+    "yjs": "^13.5.41"
   }
 }

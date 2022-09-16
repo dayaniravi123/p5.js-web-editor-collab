@@ -385,7 +385,39 @@ class Editor extends React.Component {
       ydoc
     );
     const ytext = ydoc.getText('codemirror');
-    const editor = CodeMirror(document.getElementsByTagName('article'));
+    const editorContainer = document.getElementById('mycodemirror');
+    provider.connect();
+    const editor = CodeMirror(editorContainer, {
+      theme: `p5-${this.props.theme}`,
+      lineNumbers: this.props.lineNumbers,
+      styleActiveLine: true,
+      inputStyle: 'contenteditable',
+      lineWrapping: this.props.linewrap,
+      fixedGutter: false,
+      foldGutter: true,
+      foldOptions: { widget: '\u2026' },
+      gutters: ['CodeMirror-foldgutter', 'CodeMirror-lint-markers'],
+      keyMap: 'sublime',
+      highlightSelectionMatches: true, // highlight current search match
+      matchBrackets: true,
+      autoCloseBrackets: this.props.autocloseBracketsQuotes,
+      styleSelectedText: true,
+      lint: {
+        onUpdateLinting: (annotations) => {
+          this.updateLintingMessageAccessibility(annotations);
+        },
+        options: {
+          asi: true,
+          eqeqeq: false,
+          '-W041': false,
+          esversion: 7
+        }
+      },
+      colorpicker: {
+        type: 'sketch',
+        mode: 'edit'
+      }
+    });
     const binding = new CodemirrorBinding(ytext, editor, provider.awareness);
     const editorSectionClass = classNames({
       editor: true,
@@ -434,12 +466,9 @@ class Editor extends React.Component {
             />
           </div>
         </header>
-        <article
-          ref={(element) => {
-            this.codemirrorContainer = element;
-          }}
-          className={editorHolderClass}
-        />
+        <div id="mycodemirror">
+          
+        </div>
         <EditorAccessibility lintMessages={this.props.lintMessages} />
       </section>
     );

@@ -88,7 +88,7 @@ class ConsoleInput extends React.Component {
       }
       return true;
     });
-
+    
     this._cm.getWrapperElement().style[
       'font-size'
     ] = `${this.props.fontSize}px`;
